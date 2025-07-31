@@ -15,13 +15,15 @@ def main():
     plot_dir = "plots"
     os.makedirs(plot_dir, exist_ok=True)
 
+    # Plot 1: Histogram of stress score
     plt.figure(figsize=(8, 5))
     sns.histplot(df["stress_score"], kde=True, bins=10, color='skyblue')
     plt.title("Distribution of Average Stress Score")
     plt.xlabel("Stress Score")
     plt.ylabel("Count")
+    plt.tight_layout()
     plt.savefig(f"{plot_dir}/stress_score_distribution.png")
-    plt.close()
+    plt.show()  # 👈 show the plot interactively
 
     # Plot 2: Boxplots for each stress situation
     stress_columns = [
