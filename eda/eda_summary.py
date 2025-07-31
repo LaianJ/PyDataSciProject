@@ -56,14 +56,30 @@ def main():
     plt.show()
 
     # Plot 3: Correlation heatmap
-    corr = df[stress_columns + ["stress_score"]].corr()
-    plt.figure(figsize=(10, 8))
-    sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f")
-    plt.title("Correlation Matrix of Stress Features")
-    plt.savefig(f"{plot_dir}/stress_correlation_heatmap.png")
-    plt.close()
+    short_labels = [
+        "submitting in < 1 day",
+        "week before exams",
+        "asking for ketchup",
+        "meeting someone new",
+        "asking for help",
+        "confronting someone",
+        "doing without help",
+        "stress_score"
+    ]
 
-    print("EDA complete. Plots saved in 'plots/' folder.")
+    # Compute correlation matrix
+    corr = df[stress_columns + ["stress_score"]].corr()
+
+    plt.figure(figsize=(12, 10))
+    ax = sns.heatmap(corr, annot=True, cmap='coolwarm', fmt=".2f", cbar=True,
+                     xticklabels=short_labels, yticklabels=short_labels,
+                     annot_kws={"size": 10})
+    plt.title("Correlation Matrix of Stress Features", fontsize=14)
+    plt.xticks(rotation=45, ha='right', fontsize=9)
+    plt.yticks(rotation=0, fontsize=9)
+    plt.tight_layout()
+    plt.savefig(f"{plot_dir}/stress_correlation_heatmap.png")
+    plt.show()
 
 if __name__ == "__main__":
     main()
